@@ -1,0 +1,19 @@
+{
+  "name": "c5-g01-m-mern-back-end",
+  "version": "1.0.0",
+  "description": "Back-End c5-g01-m-MERN",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/No-Country/c5-g01-m-mern-Back-End.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/No-Country/c5-g01-m-mern-Back-End/issues"
+  },
+  "homepage": "https://github.com/No-Country/c5-g01-m-mern-Back-End#readme"
+}
