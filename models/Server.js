@@ -12,7 +12,7 @@ class Server{
         this.paths={
           auth:'/auth',
           drug:'/drug',
-
+          professional:'/professional'
         }
 
 
@@ -43,6 +43,7 @@ class Server{
     
       routes(){ 
           this.app.use(this.paths.auth,require('../routes/auth'));
+          this.app.use(this.paths.professional,require('../routes/professional'));
       }
     
       listen(){

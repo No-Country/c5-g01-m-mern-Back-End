@@ -1,4 +1,4 @@
-const {Schema,model, Mongoose} = require('mongoose')
+const {Schema,model} = require('mongoose')
 
 const inquirySchema = Schema({
    Paciente:{
@@ -6,10 +6,10 @@ const inquirySchema = Schema({
        required:true,
        ref:'User'
    },
-   Medico:{
+   Professional:{
     type:Schema.Types.ObjectId,
     required:true,
-    ref:'Medico'
+    ref:'Professional'
    },
    date:{
       type:Date

@@ -3,6 +3,7 @@ const User = require("../models/User");
 
 
 const createUser = async (req,res=response)=>{
+
  const {name,lastname,password,email,cellphone} = req.body
  const emailExists = await User.findOne({email:email})
  const cellphoneExists = await User.findOne({cellphone:cellphone})
@@ -30,14 +31,40 @@ const createUser = async (req,res=response)=>{
 
 }
 
+
 const getUser =(req,res=response)=>{
 
-}
-const getUserById =(req,res=response)=>{
+  const users = User.find({})
 
+
+  if(!users){
+    res.json({msg:'No hay ningun usuario'})
+  }
+
+  res.json({msg:users})
+}
+
+const getUserById =(req,res=response)=>{
+const {id} = req.params
+const userById = User.findById(id)
+
+if(!userById){
+  res.json({msg:'El usuario no existe'})
+}
+
+
+res.json({msg:userById})
 }
 
 const editUser =(req,res=response)=>{
+const {id} = req.params
+const {name,password,lastname,email,cellphone} = req.body
+const data = {name,password,lastname,email,cellphone}
+const userById = User.findByIdAndUpdate(id,data)
+
+
+
+res.json({msg:userById})
 
 }
 
