@@ -9,6 +9,14 @@ const ProfessionalSchema = Schema({
     type:String,
     required:true,
    },
+   time1:{
+    type:String,
+    required:true
+   },
+   time2:{
+    type:String,
+    required:true
+   },
    geoLocation:{
        type:String,
        required:true

@@ -17,6 +17,21 @@ const getProfessionals = async (req,res=response)=>{
 }
 
 
+const getProfessionalsById = async (req,res=response)=>{
+    const {id} = req.params
+    const professionalExists = await Professional.findById({_id:id})
+  
+  
+    if(!professionalExists){
+        res.json({msg:'No hay profesionales por el momento'})
+    }
+  
+    res.json({
+        msg:'success',
+        data:professionalExists
+    })
+  }
+
 
 const filterProfessionals = async (req,res=response)=>{
     const {specialty,geoLocation,professional} = req.body
@@ -30,9 +45,9 @@ const filterProfessionals = async (req,res=response)=>{
 }
 
 const createProfessionals = async (req,res=response)=>{
-   const {name,lastname,geoLocation,specialty,professional} = req.body
+   const {name,lastname,time1,time2,geoLocation,specialty,professional} = req.body
 
-   const dataProfessional = {name,lastname,geoLocation,specialty,professional}
+   const dataProfessional = {name,time1,time2,lastname,geoLocation,specialty,professional}
 
    const data = await new Professional(dataProfessional)
 
@@ -53,5 +68,6 @@ const createProfessionals = async (req,res=response)=>{
 module.exports={
     getProfessionals,
     createProfessionals,
-    filterProfessionals
+    filterProfessionals,
+    getProfessionalsById
 }

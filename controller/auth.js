@@ -1,36 +1,58 @@
 const { response } = require("express");
+const { verify } = require("../helpers/google-Verify");
 const User = require("../models/User");
-
+const bcrypt= require('bcryptjs');
+const { generateJWT } = require("../middlewares/JsonWebTokens");
 
 const createUser = async (req,res=response)=>{
 
- const {name,lastname,password,email,cellphone} = req.body
- const emailExists = await User.findOne({email:email})
- const cellphoneExists = await User.findOne({cellphone:cellphone})
+    const {name,lastName,password,email} = req.body
+    const emailExists = await User.findOne({email:email})
+   
+     if(emailExists){
+       return res.status(400).json({msg:'Ya existe un usuario con este mail'})
+     }
 
-  if(emailExists){
-    return res.json({msg:'Ya existe un usuario con este mail'})
-  }
-  if(cellphoneExists){
-    return res.json({msg:'Ya existe un usuario con este telefono'})
-  }
-
-
- const dataUser = {name,lastname,password,email,cellphone}
- 
- const data =  await new User(dataUser)
-
-
-  data.save()
- 
-
-  res.json({
-      msg:'success',
-      data:data
-    })
+    
+    const data = await new User({name,lastName,password,email}) 
+    const salt =  bcrypt.genSaltSync();
+    data.password= bcrypt.hashSync(password, salt);
+   
+     await data.save()
+    
+     
+     res.json({
+         msg:'success',
+         data:data
+       })
 
 }
 
+
+const loginUser = async (req,res=response)=>{
+  const {password,email} = req.body
+  
+  const emailExists = await User.findOne({email})
+ 
+   if(!emailExists){
+     return res.status(400).json({msg:'No existe ningun usuario con este mail'})
+   }
+
+   const validPassword = bcrypt.compareSync(password, emailExists.password)
+   if(!validPassword){
+    return res.status(400).json({msg:'La contraseña es incorrecta'})
+   }
+
+
+   const token = await generateJWT(emailExists._id)
+   
+   res.json({
+       msg:'success',
+       data:emailExists,
+       token:token
+     })
+
+}
 
 const getUser =(req,res=response)=>{
 
@@ -58,8 +80,8 @@ res.json({msg:userById})
 
 const editUser =(req,res=response)=>{
 const {id} = req.params
-const {name,password,lastname,email,cellphone} = req.body
-const data = {name,password,lastname,email,cellphone}
+const {name,password,lastName,email} = req.body
+const data = {name,password,lastName,email}
 const userById = User.findByIdAndUpdate(id,data)
 
 
@@ -73,11 +95,44 @@ const deleteUser =(req,res=response)=>{
 }
 
 
+const googleSignIn = async (req,res=response) =>{
+  const {id_token} = req.body
+
+
+  try {
+     const {name,email,img} = await verify(id_token)
+     const lastname = name.at(-1)
+     console.log(lastname) 
+
+     let userGoogle = await User.findOne({email}) 
+     
+
+     if(!userGoogle){
+      const data = {
+        name,
+        email,
+        img
+      }
+
+      userGoogle = new User(data);
+      await userGoogle.save()
+     }
+
+  
+  } catch (error) {
+    
+  }
+
+}
+
+
 
 module.exports={
     createUser,
     getUser,
     getUserById,
     editUser,
-    deleteUser
+    deleteUser,
+    googleSignIn,
+    loginUser
 }

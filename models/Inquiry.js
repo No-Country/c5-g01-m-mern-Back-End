@@ -11,8 +11,8 @@ const inquirySchema = Schema({
     required:true,
     ref:'Professional'
    },
-   date:{
-      type:Date
+   dateInquiry:{
+      type:String
    },
    created:{
        date:Date.now()

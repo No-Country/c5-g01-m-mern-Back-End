@@ -1,5 +1,5 @@
 const Router = require('express')
-const {createUser} = require('../controller/auth.js')
+const {createUser,googleSignIn, loginUser} = require('../controller/auth.js')
 const {check} = require('express-validator')
 const { validate } = require('../models/User.js')
 
@@ -22,6 +22,11 @@ router.put('/modify-user',(req,res)=>{
 router.delete('/delete-user',(req,res)=>{
     res.json({msg:'success'})
 })
+
+router.post('/googleSign-In',googleSignIn)
+
+
+router.post('/logIn',loginUser)
 
 router.post('/create-user',[
     check('name','El nombre es requerido').not().isEmpty(),
