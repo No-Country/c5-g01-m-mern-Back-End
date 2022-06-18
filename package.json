@@ -4,7 +4,8 @@
   "description": "Back-End c5-g01-m-MERN",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon app.js",
+    "webpack": "webpack --mode development --watch"
   },
   "repository": {
     "type": "git",
