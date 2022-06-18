@@ -34,20 +34,20 @@ const getProfessionalsById = async (req,res=response)=>{
 
 
 const filterProfessionals = async (req,res=response)=>{
-    const {specialty,geoLocation,professional} = req.body
-    const filterProfessional = await Professional.findOne({specialty:specialty,geoLocation:geoLocation,professional:professional})
+    const {specialty,location,professional} = req.body
+    const filterProfessional = await Professional.findOne({specialty:specialty,location:location,professional:professional})
 
     if(!filterProfessional){
-        res.json({msg:'Lamentablemente, no existe ningun profesional con estas caracteristicas'})
+       return res.json({msg:'Lamentablemente, no existe ningun profesional con estas caracteristicas'})
     }
 
     res.json({msg:'Success',data:filterProfessional})
 }
 
 const createProfessionals = async (req,res=response)=>{
-   const {name,lastname,time1,time2,geoLocation,specialty,professional} = req.body
+   const {name,lastname,time1,time2,geoLocation,specialty,professional,location} = req.body
 
-   const dataProfessional = {name,time1,time2,lastname,geoLocation,specialty,professional}
+   const dataProfessional = {name,time1,time2,lastname,geoLocation,location,specialty,professional}
 
    const data = await new Professional(dataProfessional)
 

@@ -28,6 +28,10 @@ const ProfessionalSchema = Schema({
    professional:{
        type:String,
        required:true
+   },
+   location:{
+      type:String,
+      required:true,
    }
 
 })

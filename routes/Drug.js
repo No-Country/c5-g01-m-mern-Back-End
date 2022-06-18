@@ -1,21 +1,16 @@
 const Router = require('express')
+const { getAllDrugs,getDrugsById,createDrugs } = require('../controller/drug')
 
 
 const router = Router()
 
 
 
-router.get('/get-drugs',(req,res)=>{
-    res.json({msg:'success'})
-})
+router.get('/get-drugs',getAllDrugs)
 
-router.get('/get-drugsById/:id',(req,res)=>{
-    res.json({msg:'success'})
-})
+router.get('/get-drugsById/:id',getDrugsById)
 
-router.post('/get-drugs',(req,res)=>{
-    res.json({msg:'success'})
-})
+router.post('/create-drugs',createDrugs)
 
 
 

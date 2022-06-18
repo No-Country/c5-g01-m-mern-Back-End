@@ -6,7 +6,7 @@ class Server{
 
     constructor(){
         this.app= express(),
-        this.port= process.env.PORT || 3000;
+        this.port= process.env.PORT || 3080;
         
 
         this.paths={
@@ -44,6 +44,7 @@ class Server{
       routes(){ 
           this.app.use(this.paths.auth,require('../routes/auth'));
           this.app.use(this.paths.professional,require('../routes/professional'));
+          this.app.use(this.paths.drug,require('../routes/drug'));
       }
     
       listen(){
