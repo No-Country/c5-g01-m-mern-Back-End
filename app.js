@@ -1,7 +1,7 @@
-require('dotenv').config();
+require('dotenv').config()
 
 
- const Server = require('./models/server')
+ const Server = require(`${__dirname}/models/server`)
  const server =  new Server();
 
 
