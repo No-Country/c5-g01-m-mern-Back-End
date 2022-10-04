@@ -1,5 +1,4 @@
 const { response } = require("express");
-const { verify } = require("../helpers/google-Verify");
 const User = require("../models/User");
 const bcrypt= require('bcryptjs');
 const { generateJWT } = require("../middlewares/JsonWebTokens");
@@ -37,6 +36,7 @@ const loginUser = async (req,res=response)=>{
    if(!emailExists){
      return res.status(400).json({msg:'No existe ningun usuario con este mail'})
    }
+   console.log(emailExists)
 
    const validPassword = bcrypt.compareSync(password, emailExists.password)
    if(!validPassword){
@@ -95,36 +95,6 @@ const deleteUser =(req,res=response)=>{
 }
 
 
-const googleSignIn = async (req,res=response) =>{
-  const {id_token} = req.body
-
-
-  try {
-     const {name,email,img} = await verify(id_token)
-     const lastname = name.at(-1)
-     console.log(lastname) 
-
-     let userGoogle = await User.findOne({email}) 
-     
-
-     if(!userGoogle){
-      const data = {
-        name,
-        email,
-        img
-      }
-
-      userGoogle = new User(data);
-      await userGoogle.save()
-     }
-
-  
-  } catch (error) {
-    
-  }
-
-}
-
 
 
 module.exports={
@@ -133,6 +103,5 @@ module.exports={
     getUserById,
     editUser,
     deleteUser,
-    googleSignIn,
     loginUser
 }

@@ -15,7 +15,7 @@ const inquirySchema = Schema({
       type:String
    },
    created:{
-       date:Date.now()
+       date:Date
    }
 })
 

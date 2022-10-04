@@ -1,41 +1,24 @@
 const Router = require('express')
-const {createUser,googleSignIn, loginUser} = require('../controller/auth.js')
-const {check} = require('express-validator')
-const { validate } = require('../models/User.js')
+const {createUser,editUser,deleteUser,getUser,getUserById, loginUser} = require('../controller/auth.js')
+const [validaciones,validacionLogin] = require('../middlewares/validations/validationsCheck')
 
 const router = Router()
 
 
+router.get('/get-users',getUser)
 
-router.get('/get-users',(req,res)=>{
-    res.json({msg:'success'})
-})
+router.get('/get-users/:id',getUserById)
 
-router.get('/get-users/:id',(req,res)=>{
-    res.json({msg:'success'})
-})
-
-router.put('/modify-user',(req,res)=>{
-    res.json({msg:'success'})
-})
-
-router.delete('/delete-user',(req,res)=>{
-    res.json({msg:'success'})
-})
-
-router.post('/googleSign-In',googleSignIn)
+router.put('/modify-user',validaciones,editUser)
 
 
-router.post('/logIn',loginUser)
+router.delete('/delete-user',deleteUser)
 
-router.post('/create-user',[
-    check('name','El nombre es requerido').not().isEmpty(),
-    check('password','El password es requerido').not().isEmpty(),
-    check('email','El email es requerido').not().isEmpty(),
-    check('cellphone','El cellphone es requerido').not().isEmpty(),
-    check('lastname','El lastname es requerido').not().isEmpty(),
-    validate
-],createUser)
+
+
+router.post('/logIn',validacionLogin,loginUser)
+
+router.post('/create-user',validaciones,createUser)
 
 
 

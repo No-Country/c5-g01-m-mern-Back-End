@@ -12,7 +12,8 @@ class Server{
         this.paths={
           auth:'/auth',
           drug:'/drug',
-          professional:'/professional'
+          professional:'/professional',
+          inquiry:'/inquiry'
         }
 
 
@@ -45,6 +46,7 @@ class Server{
           this.app.use(this.paths.auth,require('../routes/auth'));
           this.app.use(this.paths.professional,require('../routes/professional'));
           this.app.use(this.paths.drug,require('../routes/drug'));
+          this.app.use(this.paths.inquiry,require('../routes/inquiry'));
       }
     
       listen(){
