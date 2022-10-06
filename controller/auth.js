@@ -9,7 +9,7 @@ const createUser = async (req,res=response)=>{
     const emailExists = await User.findOne({email:email})
    
      if(emailExists){
-       return res.status(400).json({msg:'Ya existe un usuario con este mail'})
+       return res.status(403).json({msg:'Ya existe un usuario con este mail'})
      }
 
     
@@ -34,13 +34,13 @@ const loginUser = async (req,res=response)=>{
   const emailExists = await User.findOne({email})
  
    if(!emailExists){
-     return res.status(400).json({msg:'No existe ningun usuario con este mail'})
+     return res.status(404).json({msg:'No existe ningun usuario con este mail'})
    }
    console.log(emailExists)
 
    const validPassword = bcrypt.compareSync(password, emailExists.password)
    if(!validPassword){
-    return res.status(400).json({msg:'La contraseña es incorrecta'})
+    return res.status(403).json({msg:'La contraseña es incorrecta'})
    }
 
 

@@ -6,7 +6,9 @@ const Drug = require("../models/Drug")
 
 const getAllDrugs = async (req,res=response) =>{
  const drugs = await Drug.find({})
+ 
 
+ console.log(drugs)
  if(!drugs){
     res.json({msg:'No hay medicinas'})
  }
