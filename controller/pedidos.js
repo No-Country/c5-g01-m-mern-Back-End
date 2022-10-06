@@ -29,6 +29,8 @@ const getPedidoByUserId = async (req,res=response) =>{
 const createPedidos = async (req,res=response) =>{
     const {Paciente,drug,created} = req.body;
 
+    console.log(Paciente,drug,created)
+
     const data = {Paciente,drug,created}
 
     const pedidoData = await new Pedido(data)

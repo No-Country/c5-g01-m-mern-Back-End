@@ -13,7 +13,8 @@ class Server{
           auth:'/auth',
           drug:'/drug',
           professional:'/professional',
-          inquiry:'/inquiry'
+          inquiry:'/inquiry',
+          pedidos:'/pedido'
         }
 
 
@@ -47,6 +48,7 @@ class Server{
           this.app.use(this.paths.professional,require('../routes/professional'));
           this.app.use(this.paths.drug,require('../routes/drug'));
           this.app.use(this.paths.inquiry,require('../routes/inquiry'));
+          this.app.use(this.paths.pedidos,require('../routes/pedido'));
       }
     
       listen(){

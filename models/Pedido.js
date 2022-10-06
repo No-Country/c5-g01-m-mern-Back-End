@@ -7,12 +7,11 @@ const PedidoSchema = Schema({
        ref:'User'
    },
    drug:{
-    type:Schema.Types.ObjectId,
-    required:true,
-    ref:'Drug'
+    type:Object,
+    required:true
    },
    created:{
-       date:Date.now()
+       date:Date
    }
 })
 
