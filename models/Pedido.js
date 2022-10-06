@@ -7,11 +7,8 @@ const PedidoSchema = Schema({
        ref:'User'
    },
    drug:{
-    type:Object,
+    type:Array,
     required:true
-   },
-   created:{
-       date:Date
    }
 })
 
